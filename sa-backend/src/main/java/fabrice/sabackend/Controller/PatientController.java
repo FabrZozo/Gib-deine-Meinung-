@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +22,14 @@ import java.util.List;
 public class PatientController {
     @Autowired
     private PatientRepository patientRepository;
-    @GetMapping("/index")
+
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/user/index";
+    }
+
+    @GetMapping("/user/index")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String index(Model model,@RequestParam(name="page", defaultValue= "0")int page,
                         @RequestParam(name="size", defaultValue = "4") int size,
                         @RequestParam(name="Keyword",defaultValue = "") String kw) {
@@ -33,24 +41,28 @@ public class PatientController {
         model.addAttribute("keyword",kw);
         return "patients";
     }
-    @GetMapping("/deletePatient")
+    @GetMapping("/admin/deletePatient")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String delete(@RequestParam(name="id") Long id,@RequestParam(name="Keyword",defaultValue = "") String Keyword,
                          @RequestParam(name="current",defaultValue ="0" ) int current) {
         patientRepository.deleteById(id);
-        return "redirect:/index?page="+current+"&Keyword="+Keyword;
+        return "redirect:/user/index?page="+current+"&Keyword="+Keyword;
     }
-    @GetMapping("/formPatients")
+    @GetMapping("/admin/formPatients")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String formPatient(Model model){
         model.addAttribute("patient", new Patient());
         return "formPatients";
     }
-    @PostMapping("/save")
+    @PostMapping("/admin/save")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String save(Model model, @Valid Patient patient, BindingResult bindingResult){
         if(bindingResult.hasErrors())return "formPatients";
         patientRepository.save(patient);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
-    @GetMapping("/update")
+    @GetMapping("/admin/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String update(Model model, @RequestParam(name="id") Long id) {
         Patient patient = patientRepository.findById(id).orElse(null);
         if(patient == null) throw new IllegalArgumentException("Patient not found");
