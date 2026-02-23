@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">Liste de Patients</div>
                 <div class="card-body">
-                    <form method="get" th:action="@{index}">
+                    <form method="get" th:action="@{/user/index}">
                         <label>Keyword :</label>
                         <input type="text" name="Keyword" th:value="${keyword}">
                         <button type="submit" class="btn btn-primary">
@@ -41,13 +41,13 @@
                             <td th:text="${patient.dateOfBirth}"></td>
                             <td th:text="${patient.score}"></td>
                             <td th:text="${patient.malade}"></td>
-                            <td>
-                                <a onclick="return confirm('etes vous sur de vouloir suprimer ?')" class="btn btn-danger" th:href="@{deletePatient(id=${patient.id})}">
+                            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                                <a onclick="return confirm('etes vous sur de vouloir suprimer ?')" class="btn btn-danger" th:href="@{/admin/deletePatient(id=${patient.id})}">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>
-                            <td>
-                                <a  class="btn btn-success" th:href="@{update(id=${patient.id})}">
+                            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                                <a  class="btn btn-success" th:href="@{/admin/update(id=${patient.id})}">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             </td>
@@ -57,7 +57,7 @@
                     <ul class="pagination">
                         <li th:each="page,status:${pages}">
                             <a th:class="${current==status.index?'btn btn-primary m-1':'btn btn-outline-primary m-1'}"
-                               th:text="${status.index}" th:href="@{index(page=${status.index},Keyword=${keyword})}"></a>
+                               th:text="${status.index}" th:href="@{/user/index(page=${status.index},Keyword=${keyword})}"></a>
                         </li>
                     </ul>
                 </div>

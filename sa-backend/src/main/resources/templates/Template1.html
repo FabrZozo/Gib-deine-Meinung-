@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{index}">Home</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/user/index}">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -40,8 +40,8 @@
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formPatients}">Ajouter Patient</a></li>
-                        <li><a class="dropdown-item" th:href="@{/index}">chercher</a></li>
+                        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a class="dropdown-item" th:href="@{/adim/formPatients}">Ajouter Patient</a></li>
+                        <li><a class="dropdown-item" th:href="@{/user/index}">chercher</a></li>
 
                     </ul>
                 </li>
@@ -56,12 +56,14 @@
                            href="#"
 
                            role="button"
-                           data-bs-toggle="dropdown">
-                            [Username]
+                           data-bs-toggle="dropdown" th:text="${#authentication.name}">
+
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" th:href="@{/formPatients}">Logout</a></li>
+                            <form th:action="@{/logout}" method="post">
+                                <button class="dropdown-item" type="submit">Logout</button>
+                            </form>
                         </ul>
                     </li>
 
