@@ -2,4 +2,4 @@
 ![Login Seite](Images/login.png)
 
 ## Home Page
-![Home Seite](Images/home.png)
+![Home Seite](Images/Home.png)
