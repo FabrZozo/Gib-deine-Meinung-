@@ -13,5 +13,5 @@ Hier ist es möglich:
 ## Technologies
 
 - **Backend:** Spring Boot  
-- **Frontend:** Thymeleaf  
+- **Frontend:** Thymeleaf, html, Bootstrap  
 - **Datenbank:** PostgreSQL  
