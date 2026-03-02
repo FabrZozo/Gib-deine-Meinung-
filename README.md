@@ -7,4 +7,11 @@ Hier ist es möglich:
 - Patienten hinzuzufügen
 - Patienten zu löschen
 - Patienten zu aktualisieren
+  
 ![Home Seite](Images/Home.png)
+
+## Technologies
+
+- **Backend:** Spring Boot  
+- **Frontend:** Thymeleaf  
+- **Datenbank:** PostgreSQL  
