@@ -1,2 +1,2 @@
 Capstartseite.png
-![Texte alternatif](images/Capstartseite.png)
+![Texte alternatif](Images/Capstartseite.png)
