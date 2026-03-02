@@ -1,4 +1,5 @@
-Capstartseite.png
-![Login Seite](Images/Capture d’écran 2026-03-02 160248.png)
+## Login Page
+![Login Seite](Images/login.png)
 
-![Home Seite](Images/Capstartseite.png)
+## Home Page
+![Home Seite](Images/home.png)
